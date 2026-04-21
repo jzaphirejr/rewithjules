@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Locqube | Real Estate with Intelligence</title>
+  <title>Jules Zaphire, Jr. | Agent of Locqube</title>
   <style>
     :root {
       --grey: #8c8b8b;
@@ -40,7 +40,7 @@
       top: 0;
       z-index: 1000;
       backdrop-filter: blur(12px);
-      background: rgba(247, 247, 245, 0.86);
+      background: rgba(247, 247, 245, 0.9);
       border-bottom: 1px solid rgba(39, 81, 125, 0.08);
     }
 
@@ -48,27 +48,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: 76px;
+      min-height: 88px;
       gap: 20px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       font-weight: 800;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.01em;
     }
 
     .brand-badge {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
       background: linear-gradient(145deg, var(--zaphire), var(--orange));
       display: grid;
       place-items: center;
-      color: white;
-      font-size: 0.9rem;
       overflow: hidden;
       box-shadow: var(--shadow);
       flex-shrink: 0;
@@ -79,6 +77,24 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .brand-text {
+      display: grid;
+      gap: 2px;
+      line-height: 1.15;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .brand-sub {
+      font-size: 0.96rem;
+      color: var(--zaphire);
+      font-weight: 700;
     }
 
     .nav-links {
@@ -99,7 +115,9 @@
       font-weight: 700;
       border: 0;
       cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease, background .2s ease;
+      font-family: inherit;
+      font-size: 1rem;
     }
 
     .btn:hover { transform: translateY(-1px); }
@@ -117,7 +135,7 @@
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.82);
       border: 1px solid rgba(39,81,125,0.12);
       color: var(--zaphire);
     }
@@ -128,7 +146,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.08fr 0.92fr;
       gap: 34px;
       align-items: center;
     }
@@ -149,14 +167,14 @@
     }
 
     h1 {
-      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      font-size: clamp(2.7rem, 5vw, 4.9rem);
       line-height: 0.96;
       margin: 0 0 18px;
       letter-spacing: -0.04em;
     }
 
     .hero p {
-      font-size: 1.08rem;
+      font-size: 1.06rem;
       line-height: 1.75;
       color: #4b5563;
       max-width: 62ch;
@@ -167,28 +185,24 @@
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
 
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 22px;
-    }
-
-    .stat {
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(39,81,125,0.09);
+    .hero-hover-panel {
+      min-height: 74px;
+      padding: 18px 20px;
       border-radius: 20px;
-      padding: 18px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(39,81,125,0.1);
       box-shadow: var(--shadow);
+      color: #4b5563;
+      line-height: 1.65;
+      max-width: 720px;
     }
 
-    .stat strong {
-      display: block;
-      font-size: 1.2rem;
+    .hero-hover-panel strong {
       color: var(--zaphire);
+      display: block;
       margin-bottom: 6px;
     }
 
@@ -206,9 +220,10 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 80% 14%, rgba(222,152,63,.28), transparent 22%),
-                  radial-gradient(circle at 18% 18%, rgba(39,81,125,.24), transparent 26%),
-                  linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.04));
+      background:
+        radial-gradient(circle at 80% 14%, rgba(222,152,63,.28), transparent 22%),
+        radial-gradient(circle at 18% 18%, rgba(39,81,125,.24), transparent 26%),
+        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.04));
       pointer-events: none;
     }
 
@@ -223,17 +238,18 @@
     .floating-card {
       position: absolute;
       backdrop-filter: blur(12px);
-      background: rgba(255,255,255,0.84);
+      background: rgba(255,255,255,0.94);
       border: 1px solid rgba(39,81,125,0.12);
       border-radius: 22px;
       box-shadow: var(--shadow);
       padding: 16px;
+      z-index: 2;
     }
 
     .floating-card.top {
       top: 24px;
       left: 24px;
-      width: 250px;
+      width: 270px;
     }
 
     .floating-card.bottom {
@@ -272,8 +288,8 @@
     .panel,
     .listing-card,
     .market,
-    .story-card,
-    .footer-grid {
+    .footer-grid,
+    .about-merged {
       background: white;
       border-radius: 28px;
       box-shadow: var(--shadow);
@@ -368,14 +384,32 @@
       line-height: 1.6;
     }
 
+    .error-text {
+      color: #b42318;
+      font-size: 0.95rem;
+      font-weight: 600;
+      min-height: 20px;
+    }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
+    }
+
+    .listing-link {
+      display: block;
     }
 
     .listing-card {
       overflow: hidden;
+      height: 100%;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .listing-link:hover .listing-card {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 60px rgba(39, 81, 125, 0.16);
     }
 
     .listing-card .img {
@@ -408,23 +442,15 @@
     }
 
     .listing-card h3 {
-      margin: 0 0 6px;
+      margin: 0 0 10px;
       font-size: 1.18rem;
     }
 
     .listing-card p {
-      margin: 0 0 16px;
-      color: #4b5563;
-      line-height: 1.7;
-    }
-
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-weight: 700;
+      margin: 0;
       color: var(--zaphire);
-      flex-wrap: wrap;
+      font-weight: 700;
+      line-height: 1.6;
     }
 
     .markets {
@@ -444,48 +470,111 @@
       font-size: 1.05rem;
     }
 
-    .story {
+    .seller-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
+      grid-template-columns: 1fr 0.9fr;
       gap: 24px;
-      align-items: center;
+      align-items: stretch;
     }
 
-    .story-card {
+    .seller-main {
+      background: white;
+      border-radius: 28px;
       padding: 30px;
-    }
-
-    .story-image {
-      position: relative;
-      overflow: hidden;
-      border-radius: 30px;
-      min-height: 500px;
-      background: linear-gradient(160deg, rgba(39,81,125,.08), rgba(214,110,56,.10));
       box-shadow: var(--shadow);
-      border: 1px solid rgba(39,81,125,0.1);
+      border: 1px solid rgba(39,81,125,0.08);
     }
 
-    .story-image img {
+    .seller-side {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(39,81,125,0.08);
+      display: grid;
+      grid-template-rows: 300px auto;
+    }
+
+    .seller-side .seller-img {
+      background: linear-gradient(160deg, rgba(39,81,125,.08), rgba(214,110,56,.10));
+      overflow: hidden;
+    }
+
+    .seller-side .seller-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      position: absolute;
-      inset: 0;
     }
 
-    .cta-band {
+    .seller-side .seller-copy {
+      padding: 24px;
+    }
+
+    .about-merged {
       background: linear-gradient(135deg, var(--zaphire), #18324f 70%);
       color: white;
-      border-radius: 32px;
-      padding: 38px;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
-      align-items: center;
+      padding: 34px;
     }
 
-    .cta-band p { color: rgba(255,255,255,0.86); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .about-merged p,
+    .about-merged li,
+    .about-merged .fine {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .about-merged .eyebrow {
+      background: rgba(255,255,255,0.12);
+      color: white;
+    }
+
+    .about-merged .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .about-merged .about-photo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 240px;
+    }
+
+    .about-merged .about-photo img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 28px;
+      object-fit: cover;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+    }
+
+    .contact-block {
+      margin-top: 26px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .contact-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.25rem;
+    }
+
+    .contact-card ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.8;
+    }
 
     .footer {
       padding: 34px 0 56px;
@@ -514,8 +603,16 @@
     }
 
     @media (max-width: 1100px) {
-      .hero-grid, .split-grid, .story, .cta-band, .footer-grid { grid-template-columns: 1fr; }
-      .cards, .markets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-grid,
+      .split-grid,
+      .seller-grid,
+      .about-grid,
+      .contact-block,
+      .footer-grid { grid-template-columns: 1fr; }
+
+      .cards,
+      .markets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
       .hero-card { min-height: 540px; }
     }
 
@@ -525,22 +622,32 @@
         position: absolute;
         left: 16px;
         right: 16px;
-        top: 78px;
+        top: 88px;
         flex-direction: column;
-        background: rgba(255,255,255,0.96);
+        background: rgba(255,255,255,0.97);
         border: 1px solid rgba(39,81,125,0.08);
         border-radius: 24px;
         padding: 18px;
         box-shadow: var(--shadow);
       }
+
       .nav-links.open { display: flex; }
       .mobile-toggle { display: inline-flex; }
-      .search-grid, .hero-stats, .cards, .markets { grid-template-columns: 1fr; }
+      .search-grid,
+      .cards,
+      .markets { grid-template-columns: 1fr; }
       .hero { padding-top: 30px; }
       .hero-card { min-height: 430px; }
-      .floating-card.top, .floating-card.bottom { width: calc(100% - 32px); left: 16px; right: 16px; }
+      .floating-card.top, .floating-card.bottom {
+        width: calc(100% - 32px);
+        left: 16px;
+        right: 16px;
+      }
       .floating-card.bottom { bottom: 16px; }
       .portrait-main { width: 96%; }
+      .brand-name { font-size: 1rem; }
+      .brand-sub { font-size: 0.88rem; }
+      .brand-badge { width: 58px; height: 58px; }
     }
   </style>
 </head>
@@ -551,10 +658,12 @@
         <span class="brand-badge">
           <video autoplay muted loop playsinline poster="assets/img/logo-mark.png">
             <source src="assets/video/logo-animation.mp4" type="video/mp4" />
-            <img src="assets/img/logo-mark.png" alt="Locqube logo" />
           </video>
         </span>
-        <span>LOCQUBE</span>
+        <span class="brand-text">
+          <span class="brand-name">Jules Zaphire, Jr.</span>
+          <span class="brand-sub">Agent of Locqube | NY & CT</span>
+        </span>
       </a>
 
       <button class="mobile-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
@@ -564,7 +673,7 @@
         <a href="#listings">Featured</a>
         <a href="#sell">Sell</a>
         <a href="#about">About</a>
-        <a href="#contact" class="btn btn-primary">Schedule a Consultation</a>
+        <a href="#about" class="btn btn-primary">Contact</a>
       </div>
     </div>
   </div>
@@ -576,35 +685,47 @@
           <div class="eyebrow">New York & Connecticut Real Estate</div>
           <h1>Find the right home — or sell with a smarter strategy.</h1>
           <p>
-            Whether you're buying, selling, or simply exploring your options, Locqube delivers local insight, thoughtful guidance, and a modern real estate experience across New York and Connecticut.
+            Whether you're buying, selling, or simply exploring your options, get local insight and a clearer path forward.
           </p>
+
           <div class="hero-cta">
-            <a class="btn btn-primary" href="https://app.locqube.com/buy" target="_blank" rel="noopener">Search Homes</a>
-            <a class="btn btn-accent" href="https://app.locqube.com/sell" target="_blank" rel="noopener">Get My Home Value</a>
-            <a class="btn btn-secondary" href="#contact">Speak with Jules</a>
+            <a
+              class="btn btn-primary"
+              href="https://app.locqube.com/buy"
+              target="_blank"
+              rel="noopener"
+              data-hover-title="For Buyers"
+              data-hover-text="Browse homes across New York and Connecticut with a smarter search experience."
+            >Search Homes</a>
+
+            <a
+              class="btn btn-accent"
+              href="https://app.locqube.com/sell"
+              target="_blank"
+              rel="noopener"
+              data-hover-title="For Sellers"
+              data-hover-text="See what your home could be worth in today’s market with a strategy built around timing, pricing, and presentation."
+            >Get My Home Value</a>
+
+            <a
+              class="btn btn-secondary"
+              href="#about"
+              data-hover-title="For Movers"
+              data-hover-text="Get personalized guidance whether you're buying, selling, relocating, or exploring your options."
+            >Speak with Jules</a>
           </div>
 
-          <div class="hero-stats">
-            <div class="stat">
-              <strong>For Buyers</strong>
-              Search homes across NYC, Westchester, the Hudson Valley, and Fairfield County with a clearer strategy from the start.
-            </div>
-            <div class="stat">
-              <strong>For Sellers</strong>
-              Understand what your home could command in today’s market and build a plan around pricing, timing, and presentation.
-            </div>
-            <div class="stat">
-              <strong>For Movers</strong>
-              Get guidance whether you're upsizing, downsizing, relocating, or making your next investment move.
-            </div>
+          <div class="hero-hover-panel" id="heroHoverPanel">
+            <strong>For Buyers</strong>
+            Browse homes across New York and Connecticut with a smarter search experience.
           </div>
         </div>
 
         <div class="hero-card">
           <div class="floating-card top">
-            <strong style="display:block;color:var(--zaphire);margin-bottom:8px;">Why Locqube</strong>
+            <strong style="display:block;color:var(--zaphire);margin-bottom:8px;">Why Jules?</strong>
             <p style="margin:0;color:#4b5563;line-height:1.6;">
-              A polished, modern approach to buying and selling with local market knowledge and strong digital visibility.
+              A polished, modern approach to real estate with local market knowledge, strong digital visibility, and personalized guidance.
             </p>
           </div>
 
@@ -630,7 +751,7 @@
             <h2>Start your home search</h2>
           </div>
           <p>
-            Browse homes across New York and Connecticut and take the next step with local insight, faster guidance, and a better overall search experience.
+            Browse homes across New York and Connecticut and take the next step with local insight and stronger direction.
           </p>
         </div>
 
@@ -675,19 +796,20 @@
                 </div>
                 <div class="feature-item">
                   <div class="icon">⚡</div>
-                  <div><strong>Move faster:</strong> Connect directly when you’re ready to ask questions, tour homes, or make a plan.</div>
+                  <div><strong>Move faster:</strong> Connect directly when you’re ready to ask questions and take the next step.</div>
                 </div>
               </div>
             </div>
 
             <div class="panel">
-              <h3>Unlock updates</h3>
+              <h3>Save your searches</h3>
               <div class="form-grid">
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="tel" placeholder="Phone" />
-                <small>Want updates on homes that match what you're looking for? Start your search and stay connected to new opportunities.</small>
-                <a class="btn btn-accent" href="https://app.locqube.com/buy" target="_blank" rel="noopener">Start Searching</a>
+                <input type="text" id="saveName" placeholder="Name" />
+                <input type="email" id="saveEmail" placeholder="Email" />
+                <input type="tel" id="savePhone" placeholder="Phone" />
+                <div class="error-text" id="saveSearchError"></div>
+                <button class="btn btn-accent" id="saveSearchBtn" type="button">Save Search</button>
+                <small>Enter your name, email, and phone to continue to your saved search options.</small>
               </div>
             </div>
           </div>
@@ -702,46 +824,46 @@
             <h2>Featured opportunities</h2>
           </div>
           <p>
-            Explore select properties and opportunities across the region, whether you're searching for a primary home, an investment property, or a lifestyle move.
+            Explore select opportunities across the region.
           </p>
         </div>
 
         <div class="cards">
-          <article class="listing-card">
-            <div class="img">
-              <span class="tag">Featured Listing</span>
-              <img src="assets/img/listing-1.jpg" alt="Featured property" />
-            </div>
-            <div class="content">
-              <h3>Featured Home Opportunity</h3>
-              <p>Browse standout properties that deserve extra attention for location, value, lifestyle, or investment potential.</p>
-              <div class="meta"><span>Buyer Focused</span><span>Local Insight</span><span>Book a Tour</span></div>
-            </div>
-          </article>
+          <a
+            class="listing-link"
+            href="https://app.locqube.com/buy/presentation/380-homestead-way-greenport-ny-11944-40146020"
+            target="_blank"
+            rel="noopener"
+          >
+            <article class="listing-card">
+              <div class="img">
+                <span class="tag">Featured Listing</span>
+                <img src="assets/img/listing-1.jpg" alt="Featured home opportunity" />
+              </div>
+              <div class="content">
+                <h3>Featured Home Opportunity</h3>
+                <p>Take a look</p>
+              </div>
+            </article>
+          </a>
 
-          <article class="listing-card">
-            <div class="img">
-              <span class="tag" style="background:linear-gradient(135deg,var(--zaphire),#376b9e)">Market Spotlight</span>
-              <img src="assets/img/listing-2.jpg" alt="Regional market opportunity" />
-            </div>
-            <div class="content">
-              <h3>Regional Opportunity</h3>
-              <p>See homes and neighborhoods that match your goals, whether you're focused on commute, value, space, or long-term upside.</p>
-              <div class="meta"><span>NY & CT</span><span>Smart Search</span><span>Next Move</span></div>
-            </div>
-          </article>
-
-          <article class="listing-card">
-            <div class="img">
-              <span class="tag" style="background:linear-gradient(135deg,var(--gold),var(--orange))">Seller Strategy</span>
-              <img src="assets/img/seller-card.jpg" alt="Home seller strategy" />
-            </div>
-            <div class="content">
-              <h3>Thinking of selling?</h3>
-              <p>Find out what your home could be worth in today’s market and start building a plan around pricing, timing, and preparation.</p>
-              <div class="meta"><span>Home Value</span><span>Seller Advice</span><span>Get Started</span></div>
-            </div>
-          </article>
+          <a
+            class="listing-link"
+            href="https://app.locqube.com/buy/presentation/829-jennings-st-bronx-ny-10459-15167176"
+            target="_blank"
+            rel="noopener"
+          >
+            <article class="listing-card">
+              <div class="img">
+                <span class="tag" style="background:linear-gradient(135deg,var(--zaphire),#376b9e)">Market Spotlight</span>
+                <img src="assets/img/listing-2.jpg" alt="Market spotlight property" />
+              </div>
+              <div class="content">
+                <h3>Market Spotlight</h3>
+                <p>Learn more</p>
+              </div>
+            </article>
+          </a>
         </div>
       </div>
     </section>
@@ -753,28 +875,29 @@
             <h2>Areas we serve</h2>
           </div>
           <p>
-            From city living to suburban neighborhoods and lifestyle-driven markets, Locqube helps buyers and sellers move with more confidence.
+            From city living to suburban neighborhoods and lifestyle-driven markets, Jules helps buyers and sellers move with more confidence.
           </p>
         </div>
 
         <div class="markets">
-          <div class="market"><strong>Westchester County</strong>Smart strategy for buyers and sellers navigating competitive suburban inventory and shifting value.</div>
+          <div class="market"><strong>Westchester County</strong>Smart strategy for buyers and sellers navigating competitive suburban inventory.</div>
           <div class="market"><strong>Hudson Valley</strong>Guidance for buyers seeking space, lifestyle, and opportunity beyond the city core.</div>
           <div class="market"><strong>Fairfield County, CT</strong>Support for buyers and sellers moving between Connecticut and New York markets.</div>
-          <div class="market"><strong>New York City</strong>Focused guidance for urban inventory, transit-driven search, and timing important decisions well.</div>
+          <div class="market"><strong>New York City</strong>Focused guidance for urban inventory, transit-driven search, and important timing decisions.</div>
         </div>
       </div>
     </section>
 
     <section class="section" id="sell">
-      <div class="container story">
-        <div class="story-card">
+      <div class="container seller-grid">
+        <div class="seller-main">
           <div class="eyebrow" style="margin-bottom:14px;">For Sellers</div>
           <h2 style="font-size:clamp(1.9rem,3.6vw,3.2rem);line-height:1;margin:0 0 14px;letter-spacing:-.03em;">Thinking about selling your home?</h2>
-          <p style="color:#4b5563;line-height:1.8;">
-            Your home may be worth more than you think, but the right result depends on pricing, presentation, timing, and strategy. Start with your home value and see what buyers may be willing to pay in today’s market.
+          <p style="color:#4b5563;line-height:1.8; margin: 0 0 22px;">
+            Your home may be worth more than you think, but the right result depends on pricing, presentation, timing, and strategy.
           </p>
-          <div class="feature-list" style="margin-top:22px;">
+
+          <div class="feature-list">
             <div class="feature-item">
               <div class="icon">💰</div>
               <div><strong>Understand value:</strong> Start with a better sense of what your home could sell for right now.</div>
@@ -788,69 +911,60 @@
               <div><strong>Move with a plan:</strong> Build a strategy around your timeline, goals, and the current market.</div>
             </div>
           </div>
-          <div class="hero-cta" style="margin-top:24px;">
+
+          <div class="hero-cta" style="margin-top:24px; margin-bottom:0;">
             <a class="btn btn-accent" href="https://app.locqube.com/sell" target="_blank" rel="noopener">Get My Home Value</a>
           </div>
         </div>
 
-        <div class="story-image">
-          <img src="assets/img/jules-secondary.png" alt="Jules Zaphire" />
+        <div class="seller-side">
+          <div class="seller-img">
+            <img src="assets/img/jules-seller.png" alt="Jules seller section image" />
+          </div>
+          <div class="seller-copy">
+            <div class="eyebrow" style="margin-bottom:10px;">Seller Strategy</div>
+            <h3 style="margin:0 0 10px; font-size:1.3rem;">Get prepared before you list</h3>
+            <p style="margin:0; color:#4b5563; line-height:1.75;">
+              Strong pricing, timing, preparation, and exposure can make a meaningful difference in your final result.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section" id="about">
-      <div class="container cta-band">
-        <div>
-          <div class="eyebrow" style="background:rgba(255,255,255,0.10);color:#fff;">About Locqube</div>
-          <h2 style="font-size:clamp(2rem,3.5vw,3.3rem);line-height:1;margin:0 0 14px;letter-spacing:-.03em;">A smarter approach to real estate</h2>
-          <p>
-            Real estate decisions are too important for guesswork. Whether you are buying, selling, relocating, or exploring your options, every move deserves a strategy built around your goals and the market you are in.
-          </p>
-          <div class="hero-cta" style="margin-top:20px;">
-            <a href="#contact" class="btn btn-accent">Start a Conversation</a>
-            <a href="https://app.locqube.com/buy" target="_blank" rel="noopener" class="btn btn-secondary" style="background:rgba(255,255,255,0.12);color:white;border-color:rgba(255,255,255,0.22);">Browse Homes</a>
-          </div>
-        </div>
-        <div style="display:flex;justify-content:center;align-items:center;min-height:260px;">
-          <img src="assets/img/jules-about.png" alt="Jules portrait" style="border-radius:28px;max-height:360px;object-fit:cover;box-shadow:0 20px 50px rgba(0,0,0,0.22);" />
-        </div>
-      </div>
-    </section>
+      <div class="container about-merged">
+        <div class="about-grid">
+          <div>
+            <div class="eyebrow">About Jules</div>
+            <h2 style="font-size:clamp(2rem,3.5vw,3.3rem);line-height:1;margin:0 0 16px;letter-spacing:-.03em;">It’s not a matter of if, but when!</h2>
+            <p style="margin:0;">
+              My mission is simple, help others achieve their dreams and goals in real estate! I want to continue to spread the word that I am out there should anyone need my services. I’ve helped people achieve their dreams and goals. What about yours? You are just as entitled and capable to make yours a reality. Let me show you how.
+            </p>
 
-    <section class="section" id="contact">
-      <div class="container split-grid">
-        <div class="panel">
-          <h3>Let’s talk about your next move</h3>
-          <div class="form-grid">
-            <input type="text" placeholder="Full Name" />
-            <input type="email" placeholder="Email Address" />
-            <input type="tel" placeholder="Phone Number" />
-            <textarea rows="5" placeholder="Tell me about your goals: buying, selling, valuation, or relocating."></textarea>
-            <a class="btn btn-primary" href="tel:19177573005">Call (917) 757-3005</a>
-            <small>Buying, selling, or exploring your options? Start the conversation and build a plan that works for you.</small>
-          </div>
-        </div>
+            <div class="contact-block">
+              <div class="contact-card">
+                <h3>Let’s talk about your next move</h3>
+                <p style="margin:0 0 16px;">
+                  Buying, selling, or exploring your options? Let’s create a plan that works for you.
+                </p>
+                <a class="btn btn-accent" href="tel:19177573005">Call (917) 757-3005</a>
+              </div>
 
-        <div class="panel">
-          <h3>Why clients work with Locqube</h3>
-          <div class="feature-list">
-            <div class="feature-item">
-              <div class="icon">📍</div>
-              <div><strong>Local expertise:</strong> Guidance across NYC, Westchester, Hudson Valley, and Fairfield County.</div>
+              <div class="contact-card">
+                <h3>Why clients work with Jules</h3>
+                <ul>
+                  <li>Local expertise across NYC, Westchester, Hudson Valley, and Fairfield County.</li>
+                  <li>Smart strategy around value, positioning, and timing.</li>
+                  <li>Modern marketing and stronger visibility.</li>
+                  <li>Personal guidance from first conversation through closing.</li>
+                </ul>
+              </div>
             </div>
-            <div class="feature-item">
-              <div class="icon">📊</div>
-              <div><strong>Smart strategy:</strong> Better decisions around value, positioning, and timing.</div>
-            </div>
-            <div class="feature-item">
-              <div class="icon">💻</div>
-              <div><strong>Modern marketing:</strong> Stronger visibility through digital-first presentation and promotion.</div>
-            </div>
-            <div class="feature-item">
-              <div class="icon">🤝</div>
-              <div><strong>Personal guidance:</strong> Clear support from first conversation through closing.</div>
-            </div>
+          </div>
+
+          <div class="about-photo">
+            <img src="assets/img/jules-about.png" alt="Jules portrait" />
           </div>
         </div>
       </div>
@@ -864,13 +978,15 @@
           <span class="brand-badge">
             <video autoplay muted loop playsinline poster="assets/img/logo-mark.png">
               <source src="assets/video/logo-animation.mp4" type="video/mp4" />
-              <img src="assets/img/logo-mark.png" alt="Locqube logo" />
             </video>
           </span>
-          <span>LOCQUBE</span>
+          <span class="brand-text">
+            <span class="brand-name">Jules Zaphire, Jr.</span>
+            <span class="brand-sub">Agent of Locqube | NY & CT</span>
+          </span>
         </div>
         <div class="fine">
-          Locqube delivers a modern real estate experience for buyers and sellers across New York and Connecticut, with smarter strategy, stronger visibility, and a more confident path forward.
+          Modern real estate guidance for buyers and sellers across New York and Connecticut.
         </div>
       </div>
       <div class="fine">
@@ -879,5 +995,56 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const heroButtons = document.querySelectorAll('.hero-cta [data-hover-title]');
+    const heroHoverPanel = document.getElementById('heroHoverPanel');
+
+    heroButtons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        heroHoverPanel.innerHTML = `
+          <strong>${button.dataset.hoverTitle}</strong>
+          ${button.dataset.hoverText}
+        `;
+      });
+
+      button.addEventListener('focus', () => {
+        heroHoverPanel.innerHTML = `
+          <strong>${button.dataset.hoverTitle}</strong>
+          ${button.dataset.hoverText}
+        `;
+      });
+    });
+
+    const saveSearchBtn = document.getElementById('saveSearchBtn');
+    const saveName = document.getElementById('saveName');
+    const saveEmail = document.getElementById('saveEmail');
+    const savePhone = document.getElementById('savePhone');
+    const saveSearchError = document.getElementById('saveSearchError');
+
+    const BOLDTRAIL_SEARCH_URL = 'PASTE_BOLDTRAIL_PROPERTY_SEARCH_URL_HERE';
+
+    saveSearchBtn.addEventListener('click', () => {
+      const missing = [];
+
+      if (!saveName.value.trim()) missing.push('name');
+      if (!saveEmail.value.trim()) missing.push('email');
+      if (!savePhone.value.trim()) missing.push('phone');
+
+      if (missing.length) {
+        saveSearchError.textContent = 'Please provide your ' + missing.join(', ') + '.';
+        return;
+      }
+
+      saveSearchError.textContent = '';
+
+      if (BOLDTRAIL_SEARCH_URL === 'PASTE_BOLDTRAIL_PROPERTY_SEARCH_URL_HERE') {
+        saveSearchError.textContent = 'Add your BoldTrail property search URL in the code before using this button.';
+        return;
+      }
+
+      window.open(BOLDTRAIL_SEARCH_URL, '_blank');
+    });
+  </script>
 </body>
 </html>

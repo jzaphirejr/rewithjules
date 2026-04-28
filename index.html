@@ -696,6 +696,23 @@
               data-hover-text="Browse homes across New York and Connecticut with a smarter search experience."
             >Search Homes</a>
 
+            <div id="sellerModal" class="modal">
+  <div class="modal-content">
+    <h3>Get Your Home Value</h3>
+
+    <input type="text" id="sellerName" placeholder="Name" />
+    <input type="email" id="sellerEmail" placeholder="Email" />
+    <input type="tel" id="sellerPhone" placeholder="Phone" />
+
+    <div id="sellerError" class="error-text"></div>
+
+    <button class="btn btn-accent" id="submitSellerForm">
+      Continue
+    </button>
+
+    <button class="close-modal" id="closeSellerModal">×</button>
+  </div>
+</div>
             <button
               class="btn btn-accent"
               id="openSellerModal">

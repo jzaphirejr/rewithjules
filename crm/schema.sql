@@ -21,7 +21,7 @@ create table if not exists contacts (
   phone text,
   lead_source text,
   contact_type text check (contact_type in ('Buyer','Seller','Buyer/Seller','Other')),
-  status text not null default 'New Lead',
+  status text not null default 'New Lead' check (status in ('New Lead','Contacted','Appointment','Active Buyer/Seller','Under Contract','Closed','Past Client','Inactive')),
   preferred_contact_method text,
   assigned_to uuid references crm_users(id),
   created_at timestamptz not null default now(),
@@ -53,7 +53,7 @@ create table if not exists leads (
   price_range text,
   property_type text,
   buyer_preferences text,
-  stage text not null default 'New Lead',
+  stage text not null default 'New Lead' check (stage in ('New Lead','Contacted','Appointment','Active Buyer/Seller','Under Contract','Closed','Past Client','Inactive')),
   assigned_to uuid references crm_users(id),
   created_at timestamptz not null default now()
 );
@@ -104,3 +104,19 @@ create table if not exists tasks (
 -- The API should upsert a contact, create a lead, create a follow-up task,
 -- and send Jules a notification. Never expose privileged database keys
 -- in the GitHub Pages JavaScript.
+
+
+-- Audit history for a multi-user CRM.
+create table if not exists audit_log (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references crm_users(id),
+  entity_type text not null,
+  entity_id uuid,
+  action text not null,
+  changes jsonb,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists leads_stage_idx on leads(stage);
+create index if not exists tasks_due_at_idx on tasks(due_at);
+create index if not exists transactions_status_idx on transactions(status);

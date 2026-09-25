@@ -319,12 +319,20 @@
       color: white;
     }
 
+    .buyer-contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
     .search-grid {
       display: grid;
       grid-template-columns: 2.2fr 1.2fr 1.2fr auto;
       gap: 12px;
     }
 
+    .buyer-contact-grid input,
     .search-grid input, .search-grid select,
     .form-grid input, .form-grid textarea {
       width: 100%;
@@ -334,6 +342,13 @@
       background: #fbfbfb;
       font-size: 1rem;
       font-family: inherit;
+    }
+
+    .lead-consent {
+      display: block;
+      margin-top: 8px;
+      color: #6b7280;
+      line-height: 1.5;
     }
 
     .split-grid {
@@ -670,6 +685,7 @@
 
       .nav-links.open { display: flex; }
       .mobile-toggle { display: inline-flex; }
+      .buyer-contact-grid,
       .search-grid,
       .cards,
       .markets { grid-template-columns: 1fr; }
@@ -809,24 +825,33 @@
             <span class="tab">Home Values</span>
           </div>
 
-          <div class="search-grid">
-            <input type="text" placeholder="City, town, neighborhood, ZIP, school district" />
-            <select>
-              <option>Price Range</option>
-              <option>$300k–$500k</option>
-              <option>$500k–$800k</option>
-              <option>$800k–$1.2M</option>
-              <option>$1.2M+</option>
-            </select>
-            <select>
-              <option>Property Type</option>
-              <option>Single Family</option>
-              <option>Condo</option>
-              <option>Multi-Family</option>
-              <option>Co-op</option>
-            </select>
-            <a class="btn btn-primary" href="https://app.locqube.com/buy" target="_blank" rel="noopener">Search</a>
-          </div>
+          <form id="buyerSearchForm" novalidate>
+            <div class="buyer-contact-grid">
+              <input type="text" id="buyerFirstName" name="first_name" placeholder="First Name" autocomplete="given-name" required />
+              <input type="text" id="buyerLastName" name="last_name" placeholder="Last Name" autocomplete="family-name" required />
+              <input type="email" id="buyerEmail" name="email" placeholder="Email Address" autocomplete="email" required />
+            </div>
+            <div class="search-grid">
+              <input type="text" id="buyerLocation" name="location" placeholder="City, town, neighborhood, ZIP, school district" required />
+              <select id="buyerPrice" name="price_range" required>
+                <option value="">Price Range</option>
+                <option>$300k–$500k</option>
+                <option>$500k–$800k</option>
+                <option>$800k–$1.2M</option>
+                <option>$1.2M+</option>
+              </select>
+              <select id="buyerPropertyType" name="property_type" required>
+                <option value="">Property Type</option>
+                <option>Single Family</option>
+                <option>Condo</option>
+                <option>Multi-Family</option>
+                <option>Co-op</option>
+              </select>
+              <button class="btn btn-primary" id="buyerSearchBtn" type="submit">Search</button>
+            </div>
+            <div class="error-text" id="buyerSearchError" aria-live="polite"></div>
+            <small class="lead-consent">By continuing, you agree that Jules Zaphire, Jr. may contact you regarding your real estate inquiry. Your search criteria will be saved so Jules can assist you.</small>
+          </form>
 
           <div class="split-grid">
             <div class="panel">
@@ -1062,6 +1087,62 @@
           ${button.dataset.hoverText}
         `;
       });
+    });
+
+    const buyerSearchForm = document.getElementById('buyerSearchForm');
+    const buyerSearchError = document.getElementById('buyerSearchError');
+    const REALTOR_SEARCH_URL = 'https://www.realtor.com/';
+
+    buyerSearchForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const fields = [
+        ['buyerFirstName', 'first name'],
+        ['buyerLastName', 'last name'],
+        ['buyerEmail', 'email address'],
+        ['buyerLocation', 'location'],
+        ['buyerPrice', 'price range'],
+        ['buyerPropertyType', 'property type']
+      ];
+
+      const missing = fields
+        .filter(([id]) => !document.getElementById(id).value.trim())
+        .map(([, label]) => label);
+
+      const email = document.getElementById('buyerEmail');
+      if (!missing.length && !email.validity.valid) {
+        buyerSearchError.textContent = 'Please enter a valid email address.';
+        email.focus();
+        return;
+      }
+
+      if (missing.length) {
+        buyerSearchError.textContent = 'Please complete: ' + missing.join(', ') + '.';
+        document.getElementById(fields.find(([id]) => !document.getElementById(id).value.trim())[0]).focus();
+        return;
+      }
+
+      buyerSearchError.textContent = '';
+
+      const lead = {
+        first_name: document.getElementById('buyerFirstName').value.trim(),
+        last_name: document.getElementById('buyerLastName').value.trim(),
+        email: email.value.trim(),
+        location: document.getElementById('buyerLocation').value.trim(),
+        price_range: document.getElementById('buyerPrice').value,
+        property_type: document.getElementById('buyerPropertyType').value,
+        lead_type: 'Buyer',
+        source: 'Jules Website',
+        created_at: new Date().toISOString()
+      };
+
+      /*
+        CRM integration point:
+        Once the secure CRM API is deployed, this handler will POST the lead
+        to that endpoint before redirecting. Do not store lead data in localStorage.
+      */
+
+      window.location.href = REALTOR_SEARCH_URL;
     });
 
     const saveSearchBtn = document.getElementById('saveSearchBtn');

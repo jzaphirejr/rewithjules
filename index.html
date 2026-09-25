@@ -803,9 +803,12 @@
   <div class="modal-content">
     <h3>Get Your Home Value</h3>
 
-    <input type="text" id="sellerName" placeholder="Name" />
-    <input type="email" id="sellerEmail" placeholder="Email" />
-    <input type="tel" id="sellerPhone" placeholder="Phone" />
+    <input type="text" id="sellerFirstName" placeholder="First Name" autocomplete="given-name" />
+    <input type="text" id="sellerLastName" placeholder="Last Name" autocomplete="family-name" />
+    <input type="email" id="sellerEmail" placeholder="Email" autocomplete="email" />
+    <input type="tel" id="sellerPhone" placeholder="Phone" autocomplete="tel" />
+    <input type="text" id="sellerAddress" placeholder="Property Address" autocomplete="street-address" />
+    <input type="text" id="sellerWebsite" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;" />
 
     <div id="sellerError" class="error-text"></div>
 
@@ -1140,6 +1143,7 @@
     const buyerSearchForm = document.getElementById('buyerSearchForm');
     const buyerSearchError = document.getElementById('buyerSearchError');
     const REALTOR_SEARCH_URL = 'https://www.realtor.com/';
+    const CRM_LEAD_URL = 'https://vcpxkvswwhfxmquwzovp.supabase.co/functions/v1/website-lead';
 
     buyerSearchForm.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -1185,13 +1189,22 @@
         created_at: new Date().toISOString()
       };
 
-      /*
-        CRM integration point:
-        Once the secure CRM API is deployed, this handler will POST the lead
-        to that endpoint before redirecting. Do not store lead data in localStorage.
-      */
-
-      window.location.href = REALTOR_SEARCH_URL;
+      const buyerButton = document.getElementById('buyerSearchBtn');
+      buyerButton.disabled = true;
+      buyerButton.textContent = 'Saving Your Search…';
+      try {
+        const response = await fetch(CRM_LEAD_URL, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(lead)
+        });
+        if (!response.ok) throw new Error('Lead save failed');
+        window.location.href = REALTOR_SEARCH_URL;
+      } catch (error) {
+        buyerSearchError.textContent = "We couldn't save your information. Please try again, or call Jules at (917) 757-3005.";
+        buyerButton.disabled = false;
+        buyerButton.textContent = 'Start My Home Search';
+      }
     });
 
   </script>
@@ -1201,9 +1214,12 @@
   const closeModal = document.getElementById('closeSellerModal');
   const submitBtn = document.getElementById('submitSellerForm');
 
-  const nameInput = document.getElementById('sellerName');
+  const firstNameInput = document.getElementById('sellerFirstName');
+  const lastNameInput = document.getElementById('sellerLastName');
   const emailInput = document.getElementById('sellerEmail');
   const phoneInput = document.getElementById('sellerPhone');
+  const addressInput = document.getElementById('sellerAddress');
+  const websiteInput = document.getElementById('sellerWebsite');
   const errorBox = document.getElementById('sellerError');
 
   const SELL_LINK = "https://app.locqube.com/sell";
@@ -1216,29 +1232,47 @@
     modal.style.display = 'none';
   });
 
-  submitBtn.addEventListener('click', () => {
+  submitBtn.addEventListener('click', async () => {
     const missing = [];
-
-    if (!nameInput.value.trim()) missing.push("name");
+    if (!firstNameInput.value.trim()) missing.push("first name");
+    if (!lastNameInput.value.trim()) missing.push("last name");
     if (!emailInput.value.trim()) missing.push("email");
     if (!phoneInput.value.trim()) missing.push("phone");
-
+    if (!addressInput.value.trim()) missing.push("property address");
     if (missing.length) {
       errorBox.textContent = "Please enter your " + missing.join(", ") + ".";
       return;
     }
-
+    if (!emailInput.validity.valid) {
+      errorBox.textContent = "Please enter a valid email address.";
+      return;
+    }
     errorBox.textContent = "";
-
-    // 👉 Optional: store locally (for now)
-    localStorage.setItem("sellerLead", JSON.stringify({
-      name: nameInput.value,
-      email: emailInput.value,
-      phone: phoneInput.value
-    }));
-
-    // redirect
-    window.open(SELL_LINK, "_blank");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Saving…";
+    try {
+      const response = await fetch(CRM_LEAD_URL, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          first_name:firstNameInput.value.trim(),
+          last_name:lastNameInput.value.trim(),
+          email:emailInput.value.trim(),
+          phone:phoneInput.value.trim(),
+          location:addressInput.value.trim(),
+          lead_type:"Seller",
+          website:websiteInput.value
+        })
+      });
+      if (!response.ok) throw new Error("Lead save failed");
+      modal.style.display = "none";
+      window.open(SELL_LINK, "_blank");
+    } catch (error) {
+      errorBox.textContent = "We couldn't save your information. Please try again, or call Jules at (917) 757-3005.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Continue";
+    }
   });
 
   window.onclick = function(e) {

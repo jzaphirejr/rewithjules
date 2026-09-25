@@ -319,6 +319,53 @@
       color: white;
     }
 
+    .buyer-intro {
+      padding: 4px 4px 26px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(39,81,125,0.10);
+    }
+
+    .buyer-form-section {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 16px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(39,81,125,0.08);
+    }
+
+    .buyer-step {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--zaphire), #376b9e);
+      color: white;
+      font-weight: 800;
+    }
+
+    .buyer-form-content h3 { margin: 4px 0 14px; font-size: 1.18rem; }
+    .buyer-form-content p { margin: 0 0 14px; color: #4b5563; line-height: 1.7; }
+    .buyer-form-content textarea {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(39,81,125,0.14);
+      background: #fbfbfb;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .buyer-submit-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding-top: 24px;
+    }
+
     .buyer-contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1.4fr;
@@ -689,6 +736,10 @@
       .search-grid,
       .cards,
       .markets { grid-template-columns: 1fr; }
+      .buyer-contact-grid,
+      .buyer-submit-row { grid-template-columns: 1fr; }
+      .buyer-form-section { grid-template-columns: 36px 1fr; gap: 12px; }
+      .buyer-submit-row .btn { width: 100%; }
       .hero { padding-top: 30px; }
       .hero-card { min-height: 430px; }
       .floating-card.top, .floating-card.bottom {
@@ -818,71 +869,68 @@
         </div>
 
         <div class="search-shell">
-          <div class="search-tabs">
-            <span class="tab active">Search Homes</span>
-            <span class="tab">Featured Listings</span>
-            <span class="tab">Luxury</span>
-            <span class="tab">Home Values</span>
+          <div class="buyer-intro">
+            <div class="eyebrow" style="margin-bottom:12px;">Why buyers start here</div>
+            <h3 style="margin:0 0 10px;font-size:1.55rem;">A better search starts with understanding what matters to you.</h3>
+            <p style="margin:0;color:#4b5563;line-height:1.75;">
+              Share a few details about your move and what you're hoping to find. Jules can use that information to better understand your search and provide more relevant guidance as you explore the market.
+            </p>
           </div>
 
           <form id="buyerSearchForm" novalidate>
-            <div class="buyer-contact-grid">
-              <input type="text" id="buyerFirstName" name="first_name" placeholder="First Name" autocomplete="given-name" required />
-              <input type="text" id="buyerLastName" name="last_name" placeholder="Last Name" autocomplete="family-name" required />
-              <input type="email" id="buyerEmail" name="email" placeholder="Email Address" autocomplete="email" required />
+            <div class="buyer-form-section">
+              <div class="buyer-step">1</div>
+              <div class="buyer-form-content">
+                <h3>Tell me a little about you</h3>
+                <div class="buyer-contact-grid">
+                  <input type="text" id="buyerFirstName" name="first_name" placeholder="First Name" autocomplete="given-name" required />
+                  <input type="text" id="buyerLastName" name="last_name" placeholder="Last Name" autocomplete="family-name" required />
+                  <input type="email" id="buyerEmail" name="email" placeholder="Email Address" autocomplete="email" required />
+                </div>
+              </div>
             </div>
-            <div class="search-grid">
-              <input type="text" id="buyerLocation" name="location" placeholder="City, town, neighborhood, ZIP, school district" required />
-              <select id="buyerPrice" name="price_range" required>
-                <option value="">Price Range</option>
-                <option>$300k–$500k</option>
-                <option>$500k–$800k</option>
-                <option>$800k–$1.2M</option>
-                <option>$1.2M+</option>
-              </select>
-              <select id="buyerPropertyType" name="property_type" required>
-                <option value="">Property Type</option>
-                <option>Single Family</option>
-                <option>Condo</option>
-                <option>Multi-Family</option>
-                <option>Co-op</option>
-              </select>
-              <button class="btn btn-primary" id="buyerSearchBtn" type="submit">Search</button>
+
+            <div class="buyer-form-section">
+              <div class="buyer-step">2</div>
+              <div class="buyer-form-content">
+                <h3>Where and what are you searching for?</h3>
+                <div class="search-grid">
+                  <input type="text" id="buyerLocation" name="location" placeholder="City, town, neighborhood, ZIP, or school district" required />
+                  <select id="buyerPrice" name="price_range" required>
+                    <option value="">Price Range</option>
+                    <option>$300k–$500k</option>
+                    <option>$500k–$800k</option>
+                    <option>$800k–$1.2M</option>
+                    <option>$1.2M+</option>
+                  </select>
+                  <select id="buyerPropertyType" name="property_type" required>
+                    <option value="">Property Type</option>
+                    <option>Single Family</option>
+                    <option>Condo</option>
+                    <option>Multi-Family</option>
+                    <option>Co-op</option>
+                  </select>
+                </div>
+              </div>
             </div>
-            <div class="error-text" id="buyerSearchError" aria-live="polite"></div>
-            <small class="lead-consent">By continuing, you agree that Jules Zaphire, Jr. may contact you regarding your real estate inquiry. Your search criteria will be saved so Jules can assist you.</small>
+
+            <div class="buyer-form-section buyer-preferences-section">
+              <div class="buyer-step">3</div>
+              <div class="buyer-form-content">
+                <h3>Tell me what you're looking for</h3>
+                <p>What would make the right home for you? Include anything that matters — bedrooms, bathrooms, commute, acreage, garage, pool, condition, neighborhood, must-haves or deal breakers.</p>
+                <textarea id="buyerPreferences" name="buyer_preferences" rows="6" placeholder="Example: Looking for 4 bedrooms, at least 2 bathrooms, a finished basement, good-sized backyard and a 2-car garage. Prefer Brewster or Mahopac and would like to stay within 15 minutes of Metro-North."></textarea>
+              </div>
+            </div>
+
+            <div class="buyer-submit-row">
+              <div>
+                <div class="error-text" id="buyerSearchError" aria-live="polite"></div>
+                <small class="lead-consent">By continuing, you agree that Jules Zaphire, Jr. may contact you regarding your real estate inquiry.</small>
+              </div>
+              <button class="btn btn-primary" id="buyerSearchBtn" type="submit">Start My Home Search</button>
+            </div>
           </form>
-
-          <div class="split-grid">
-            <div class="panel">
-              <h3>Why buyers start here</h3>
-              <div class="feature-list">
-                <div class="feature-item">
-                  <div class="icon">🏠</div>
-                  <div><strong>Local focus:</strong> Search opportunities across the markets you care about most.</div>
-                </div>
-                <div class="feature-item">
-                  <div class="icon">📍</div>
-                  <div><strong>Better direction:</strong> Narrow your search by location, price point, and property type.</div>
-                </div>
-                <div class="feature-item">
-                  <div class="icon">⚡</div>
-                  <div><strong>Move faster:</strong> Connect directly when you’re ready to ask questions and take the next step.</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="panel">
-              <h3>Tell me what you're looking for</h3>
-              <p style="margin:0 0 14px;color:#4b5563;line-height:1.7;">
-                What would make the right home for you? Tell me anything that matters — bedrooms, bathrooms, school district, commute, acreage, garage, pool, condition, neighborhood, must-haves, deal breakers, or anything else I should know.
-              </p>
-              <div class="form-grid">
-                <textarea id="buyerPreferences" name="buyer_preferences" rows="7" form="buyerSearchForm" placeholder="Example: Looking for 4 bedrooms, at least 2 bathrooms, a finished basement, good-sized backyard and a 2-car garage. Prefer Brewster or Mahopac and would like to stay within 15 minutes of Metro-North."></textarea>
-                <small>This information helps Jules understand what matters most to you and provide more relevant guidance.</small>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

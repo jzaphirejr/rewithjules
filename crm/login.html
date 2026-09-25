@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jules CRM</title><style>
+:root{--blue:#27517d;--orange:#d66e38;--gold:#de983f;--gray:#8c8b8b}*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#1f2937}.wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.card{width:min(460px,100%);background:white;border-radius:24px;padding:34px;box-shadow:0 20px 60px rgba(39,81,125,.14)}h1{margin:0;color:var(--blue)}p{line-height:1.6;color:#667085}.tabs{display:flex;gap:8px;margin:24px 0 16px}.tabs button{flex:1;border:0;border-radius:12px;padding:12px;cursor:pointer}.tabs .active{background:var(--blue);color:white}input{width:100%;padding:14px 16px;margin:7px 0;border:1px solid #d7dce2;border-radius:12px;font-size:16px}.primary{width:100%;margin-top:12px;padding:14px;border:0;border-radius:12px;background:var(--orange);color:white;font-weight:700;font-size:16px;cursor:pointer}.msg{min-height:22px;margin-top:14px;font-size:14px}.small{font-size:13px}.brand{font-weight:800;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:12px}</style></head>
+<body><div class="wrap"><div class="card"><div class="brand">Jules Zaphire, Jr.</div><h1>Jules CRM</h1><p>Secure access to your contacts, leads, transactions and follow-ups.</p>
+<div class="tabs"><button id="loginTab" class="active">Sign In</button><button id="setupTab">First-Time Setup</button></div>
+<form id="authForm"><input id="email" type="email" value="jzaphirejr@gmail.com" autocomplete="email" required><input id="password" type="password" placeholder="Password (minimum 8 characters)" minlength="8" autocomplete="current-password" required><button class="primary" id="submitBtn">Sign In</button><div class="msg" id="msg"></div></form>
+<p class="small">The first-time setup is restricted to the authorized administrator email. After email confirmation, return here and sign in.</p></div></div>
+<script type="module">
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
+const supabase=createClient('https://vcpxkvswwhfxmquwzovp.supabase.co','sb_publishable_r9yr-jGJPQLR4lTW__K_KA_TSAMlWG6');
+let mode='login'; const email=document.getElementById('email'), password=document.getElementById('password'), msg=document.getElementById('msg'), btn=document.getElementById('submitBtn');
+function setMode(m){mode=m;document.getElementById('loginTab').classList.toggle('active',m==='login');document.getElementById('setupTab').classList.toggle('active',m==='setup');btn.textContent=m==='login'?'Sign In':'Create Administrator Account';password.autocomplete=m==='login'?'current-password':'new-password';msg.textContent=''}
+document.getElementById('loginTab').onclick=()=>setMode('login');document.getElementById('setupTab').onclick=()=>setMode('setup');
+document.getElementById('authForm').onsubmit=async(e)=>{e.preventDefault();msg.textContent='';btn.disabled=true;
+try{if(email.value.trim().toLowerCase()!=='jzaphirejr@gmail.com'){throw new Error('This setup page is currently restricted to the administrator email.')}
+if(mode==='setup'){const {error}=await supabase.auth.signUp({email:email.value.trim(),password:password.value});if(error)throw error;msg.textContent='Account submitted. Check your email for the confirmation message, then return and sign in.'}
+else{const {data,error}=await supabase.auth.signInWithPassword({email:email.value.trim(),password:password.value});if(error)throw error;if(data.session)location.href='./dashboard.html';}}
+catch(err){msg.textContent=err.message||'Unable to continue.'}finally{btn.disabled=false}};
+const {data}=await supabase.auth.getSession();if(data.session)location.href='./dashboard.html';
+</script></body></html>

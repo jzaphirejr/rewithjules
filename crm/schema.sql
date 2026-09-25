@@ -52,6 +52,7 @@ create table if not exists leads (
   location_interest text,
   price_range text,
   property_type text,
+  buyer_preferences text,
   stage text not null default 'New Lead',
   assigned_to uuid references crm_users(id),
   created_at timestamptz not null default now()

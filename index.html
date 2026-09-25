@@ -873,14 +873,13 @@
             </div>
 
             <div class="panel">
-              <h3>Save your searches</h3>
+              <h3>Tell me what you're looking for</h3>
+              <p style="margin:0 0 14px;color:#4b5563;line-height:1.7;">
+                What would make the right home for you? Tell me anything that matters — bedrooms, bathrooms, school district, commute, acreage, garage, pool, condition, neighborhood, must-haves, deal breakers, or anything else I should know.
+              </p>
               <div class="form-grid">
-                <input type="text" id="saveName" placeholder="Name" />
-                <input type="email" id="saveEmail" placeholder="Email" />
-                <input type="tel" id="savePhone" placeholder="Phone" />
-                <div class="error-text" id="saveSearchError"></div>
-                <button class="btn btn-accent" id="saveSearchBtn" type="button">Save Search</button>
-                <small>Enter your name, email, and phone to continue to your saved search options.</small>
+                <textarea id="buyerPreferences" name="buyer_preferences" rows="7" form="buyerSearchForm" placeholder="Example: Looking for 4 bedrooms, at least 2 bathrooms, a finished basement, good-sized backyard and a 2-car garage. Prefer Brewster or Mahopac and would like to stay within 15 minutes of Metro-North."></textarea>
+                <small>This information helps Jules understand what matters most to you and provide more relevant guidance.</small>
               </div>
             </div>
           </div>
@@ -1131,6 +1130,7 @@
         location: document.getElementById('buyerLocation').value.trim(),
         price_range: document.getElementById('buyerPrice').value,
         property_type: document.getElementById('buyerPropertyType').value,
+        buyer_preferences: document.getElementById('buyerPreferences').value.trim(),
         lead_type: 'Buyer',
         source: 'Jules Website',
         created_at: new Date().toISOString()
@@ -1145,35 +1145,6 @@
       window.location.href = REALTOR_SEARCH_URL;
     });
 
-    const saveSearchBtn = document.getElementById('saveSearchBtn');
-    const saveName = document.getElementById('saveName');
-    const saveEmail = document.getElementById('saveEmail');
-    const savePhone = document.getElementById('savePhone');
-    const saveSearchError = document.getElementById('saveSearchError');
-
-    const BOLDTRAIL_SEARCH_URL = 'PASTE_BOLDTRAIL_PROPERTY_SEARCH_URL_HERE';
-
-    saveSearchBtn.addEventListener('click', () => {
-      const missing = [];
-
-      if (!saveName.value.trim()) missing.push('name');
-      if (!saveEmail.value.trim()) missing.push('email');
-      if (!savePhone.value.trim()) missing.push('phone');
-
-      if (missing.length) {
-        saveSearchError.textContent = 'Please provide your ' + missing.join(', ') + '.';
-        return;
-      }
-
-      saveSearchError.textContent = '';
-
-      if (BOLDTRAIL_SEARCH_URL === 'PASTE_BOLDTRAIL_PROPERTY_SEARCH_URL_HERE') {
-        saveSearchError.textContent = 'Add your BoldTrail property search URL in the code before using this button.';
-        return;
-      }
-
-      window.open(BOLDTRAIL_SEARCH_URL, '_blank');
-    });
   </script>
   <script>
   const openModal = document.getElementById('openSellerModal');

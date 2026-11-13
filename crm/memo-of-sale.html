@@ -107,7 +107,7 @@ function parseMemoText(raw){
  }
  const ml=match(/OFFER AS PER MLS\s*#?\s*(\d+)/i);
  const net=match(/Net to Seller:\s*\$[_\s]*([\d,]+)/i);
- const extra=[ml?'MLS #: '+ml:null,net?'Offer form states net to seller: 
+ const extra=[ml?'MLS #: '+ml:null,net?'Offer form states net to seller: $'+net:null].filter(Boolean);
  if(extra.length)found.notes=[found.notes,...extra].filter(Boolean).join('\n');
  return {found,warnings};
 }

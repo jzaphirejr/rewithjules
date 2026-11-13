@@ -16,7 +16,15 @@ const values={date:new Date().toLocaleDateString('en-US',{year:'numeric',month:'
 const key='memo-sale:'+tid;try{Object.assign(values,JSON.parse(localStorage.getItem(key)||'{}'))}catch{}
 document.querySelectorAll('[data-field]').forEach(el=>{el.value=values[el.id]||'';el.addEventListener('input',render)});
 function row(k,label){const div=document.createElement('div');div.className='memo-row';const a=document.createElement('strong');a.textContent=label;const b=document.createElement('div');b.className='val';b.textContent=$(k).value||'—';div.append(a,b);return div}
-function render(){const pages=[['date','Date'],['property','Subject Property'],['seller','Seller'],['buyer','Purchaser'],['price','Sales Price'],['deposit','Deposit at Contract'],['financing','Mortgage Financing / Balance'],['occupancy','Possession / Vacancy'],['terms','Additional Terms'],['contingencies','Contingencies'],['inclusions','Inclusions'],['exclusions','Exclusions'],['closing','Closing Date']], [['sellerAttorney',"Seller's Attorney"],['buyerAttorney',"Purchaser's Attorney"]], [['listingBroker','Listing Brokerage'],['sellingBroker','Selling Brokerage'],['listingCommission','Listing Commission'],['sellingCommission','Selling Commission'],['notes','Other Details']]];pages.forEach((items,i)=>{const target=$('page'+(i+1));target.replaceChildren(...items.map(([k,label])=>row(k,label)))});const data={};document.querySelectorAll('[data-field]').forEach(x=>data[x.id]=x.value);localStorage.setItem(key,JSON.stringify(data))}render();
+function render(){
+const pages=[
+[['date','Date'],['property','Subject Property'],['seller','Seller'],['buyer','Purchaser'],['price','Sales Price'],['deposit','Deposit at Contract'],['financing','Mortgage Financing / Balance'],['occupancy','Possession / Vacancy'],['terms','Additional Terms'],['contingencies','Contingencies'],['inclusions','Inclusions'],['exclusions','Exclusions'],['closing','Closing Date']],
+[['sellerAttorney',"Seller's Attorney"],['buyerAttorney',"Purchaser's Attorney"]],
+[['listingBroker','Listing Brokerage'],['sellingBroker','Selling Brokerage'],['listingCommission','Listing Commission'],['sellingCommission','Selling Commission'],['notes','Other Details']]
+];
+pages.forEach((items,i)=>{const target=$('page'+(i+1));target.replaceChildren(...items.map(([k,label])=>row(k,label)))});
+const data={};document.querySelectorAll('[data-field]').forEach(x=>data[x.id]=x.value);try{localStorage.setItem(key,JSON.stringify(data))}catch(e){console.warn('Local draft unavailable',e)}
+}render();
 
 const fieldPatterns=[
  ['property',/^(?:subject property|property address|property|premises|address of property)\s*[:\-]?\s*(.*)$/i],

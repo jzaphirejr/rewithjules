@@ -80,9 +80,9 @@ function parseMemoText(raw){
  // Attorney contact cards: side is NOT inferable from a contact card alone.
  const email=match(/\b([\w.+-]+@[\w.-]+\.[A-Za-z]{2,})\b/);
  const phone=match(/(\(\d{3}\)\s*\d{3}[-.\s]\d{4})/);
- const attorneyName=match(/(?:Cocchia Law\s*[–-]\s*|^)(Patricia A\.\s*Cocchia,\s*Esq\.)/im);
+ const attorneyName=match(/(Patricia\s+A\.?\s*Cocchia,?\s*Esq\.?)/i);
  if(attorneyName&&email){
-   const address=match(/(\d{2,6}\s+Route\s+\d+,\s*Suite\s+\d+,\s*[A-Za-z]+,\s*(?:NY|New York)\s*\d{5})/i);
+   const address=match(/(\d{2,6}\s+Route\s+\d+,?\s*Suite\s+\d+,?\s*[A-Za-z]+,?\s*(?:NY|New York)\s*\d{5})/i);
    const details=[attorneyName,'Cocchia Law',address,phone,email].filter(Boolean).join('\n');
    assign('notes','Attorney contact supplied (representation side not specified; assign to buyer or seller attorney after confirmation):\n'+details);
    warnings.push('Attorney representation side was not specified; contact placed in Other Details for review.');

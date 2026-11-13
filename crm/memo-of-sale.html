@@ -154,7 +154,7 @@ async function readPDF(f){
   for(let n=1;n<=pdf.numPages;n++){
     const page=await pdf.getPage(n);
     const tc=await page.getTextContent();
-    let content=tc.items.map(x=>x.str||'').join(' ').trim();
+    const rows=new Map();for(const item of tc.items){if(!item.str?.trim())continue;const y=Math.round((item.transform?.[5]||0)/3)*3;const row=rows.get(y)||[];row.push({x:item.transform?.[4]||0,text:item.str});rows.set(y,row)}let content=[...rows.entries()].sort((a,b)=>b[0]-a[0]).map(([y,items])=>items.sort((a,b)=>a.x-b.x).map(i=>i.text).join('  ')).join('\n').trim();
     if(content.length<35){
       const viewport=page.getViewport({scale:1.7});
       const canvas=document.createElement('canvas');
